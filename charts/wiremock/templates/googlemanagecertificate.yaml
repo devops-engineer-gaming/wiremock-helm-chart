@@ -1,0 +1,11 @@
+{{- if .Values.ingress.googleManagedCertificate -}}
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: {{ include "wiremock.fullname" . }}
+spec:
+  {{ range .Values.ingress.hosts -}}
+  domains:
+    - {{ .host }}
+  {{- end }}
+{{- end }}
